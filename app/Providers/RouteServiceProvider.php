@@ -28,6 +28,14 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->routes(function () {
             $this->mapApiRoutes();
+
+            Route::middleware([
+                'web',
+                InitializeTenancyByDomain::class,
+                PreventAccessFromCentralDomains::class,
+            ])->name('tenant.')
+                ->group(base_path('routes/tenant.php'));
+
             $this->mapWebRoutes();
         });
     }
