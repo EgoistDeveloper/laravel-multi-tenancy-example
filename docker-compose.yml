@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  # Percona for MySQL
+  larapress_tenancy_db:
+    image: mysql:latest
+    container_name: larapress_tenancy_db
+    restart: unless-stopped
+    ports:
+      - ${DB_TENANCY_PORT}:3306
+    environment:
+      MYSQL_DATABASE: ${DB_TENANCY_DATABASE}
+      MYSQL_USER: ${DB_TENANCY_USERNAME}
+      MYSQL_PASSWORD: ${DB_TENANCY_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_TENANCY_PASSWORD}
+    networks:
+      - percona_net
+
+networks:
+  percona_net:
+    driver: bridge
